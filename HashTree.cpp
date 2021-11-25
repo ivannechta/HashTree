@@ -1,4 +1,14 @@
 #include "HashTree.h"
+int HashTree::cmp(datatype a, datatype b)
+{
+	if (a > b) return 1;
+	if (a < b) return -1;
+	return 0;
+}
+void HashTree::move(datatype* a, datatype* b)
+{
+	*a = *b;
+}
 #pragma region Constructor&Destructor
 HashTree::HashTree(int hash_size)
 {
@@ -27,19 +37,19 @@ HashTree::~HashTree()
 }
 #pragma endregion
 
-int HashTree::HashFunc(int data)
+int HashTree::HashFunc(datatype data)
 {
 	return data % HashSize;
 }
 
-void HashTree::Add(int data)
+void HashTree::Add(datatype data)
 {
 	int tmp = HashFunc(data);
 	TreeNode* p = HashTable[tmp];
 	if (p == NULL)
 	{
 		HashTable[tmp] = new TreeNode();
-		HashTable[tmp]->data = data;
+		move(&(HashTable[tmp]->data),&data);
 		HashTable[tmp]->l = HashTable[tmp]->r = NULL;
 	}
 	else 
@@ -47,17 +57,18 @@ void HashTree::Add(int data)
 		Add2Tree(p, data);
 	}
 }
-TreeNode* NewNode(int data)
+TreeNode* HashTree::NewNode(datatype data)
 {
-	TreeNode* p=new TreeNode;
-	p->data = data;
+	TreeNode* p = new TreeNode;
+	
+	move(&(p->data) , &data);
 	p->l = p->r = NULL;
 	return p;
 }
 
 void HashTree::Add2Tree(TreeNode *p,int data)
 {
-	if (p->data > data) 
+	if (cmp(p->data, data)==1) 
 	{
 		if ((p->l) == NULL)
 		{
@@ -69,7 +80,7 @@ void HashTree::Add2Tree(TreeNode *p,int data)
 		}
 		return;
 	}
-	if (p->data < data)
+	if (cmp(p->data, data)==-1)
 	{
 		if ((p->r) == NULL)
 		{
@@ -98,15 +109,15 @@ void HashTree::Vivod()
 	}
 }
 
-TreeNode* HashTree::Find2Tree(TreeNode* p, int data)
+TreeNode* HashTree::Find2Tree(TreeNode* p, datatype data)
 {
 	if (p == NULL)return NULL;
-	if (p->data == data) return p;
-	if ((p->data > data)&&(p->l!=NULL))
+	if (cmp(p->data,data)==0) return p;
+	if (cmp(p->data , data)==1&&(p->l!=NULL))
 	{
 		return Find2Tree(p->l, data);
 	}
-	if ((p->data < data) && (p->r != NULL))
+	if (cmp(p->data , data)==-1 && (p->r != NULL))
 	{
 		return Find2Tree(p->r, data);
 	}
