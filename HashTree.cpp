@@ -81,7 +81,7 @@ void HashTree::Add2Tree(TreeNode *p,int data)
 		}
 		return;
 	}	
-#pragma message ("What do with equal data in hash table??")
+#pragma message ("What to do with equal data in hash table?")
 }
 void HashTree::ShowTree(TreeNode* p)
 {
