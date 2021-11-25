@@ -97,3 +97,23 @@ void HashTree::Vivod()
 		ShowTree(HashTable[i]);
 	}
 }
+
+TreeNode* HashTree::Find2Tree(TreeNode* p, int data)
+{
+	if (p == NULL)return NULL;
+	if (p->data == data) return p;
+	if ((p->data > data)&&(p->l!=NULL))
+	{
+		return Find2Tree(p->l, data);
+	}
+	if ((p->data < data) && (p->r != NULL))
+	{
+		return Find2Tree(p->r, data);
+	}
+	return NULL;
+}
+
+TreeNode* HashTree::Find(int data)
+{	
+	return Find2Tree(HashTable[HashFunc(data)], data);
+}
