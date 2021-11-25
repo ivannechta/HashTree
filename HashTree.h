@@ -1,14 +1,9 @@
 #pragma once
 #include <stdlib.h>
 
-struct HashTreeElement 
-{
-	TreeNode* t;
-};
 
 struct TreeNode 
-{
-	HashTreeElement* el;
+{	
 	int data;
 	TreeNode* l, * r;
 };
@@ -16,7 +11,7 @@ struct TreeNode
 class HashTree 
 {
 private:
-	HashTreeElement** HashTable;
+	TreeNode** HashTable;
 	int HashSize;
 	//void Add2Tree(HashTreeElement **p, int data);
 	void DeleteTree(TreeNode *p);
@@ -26,6 +21,6 @@ public:
 	HashTree(int hash_size);
 	~HashTree();
 
-	HashTreeElement* Find(int data);
+	TreeNode* Find(int data);
 	void Add(int data);
 };
