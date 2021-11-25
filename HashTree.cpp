@@ -3,7 +3,7 @@
 HashTree::HashTree(int hash_size)
 {
 	HashSize = hash_size;
-	*HashTable = new TreeNode[HashSize];
+	HashTable = new TreeNode*[HashSize];
 	for (int i = 0; i < HashSize; i++)
 	{
 		HashTable[i] = NULL;
